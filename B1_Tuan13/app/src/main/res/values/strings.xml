@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">B1_Tuan13</string>
+    <string name="chon_ngay_sinh">Chọn ngày sinh</string>
+    <string name="_10_01_2003">10/01/2003</string>
+    <string name="b_n_s_ng_c">Bạn đã sống được</string>
+    <string name="ph_t">phút</string>
+</resources>
