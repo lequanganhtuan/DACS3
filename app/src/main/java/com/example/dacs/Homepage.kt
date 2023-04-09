@@ -61,7 +61,7 @@ class Homepage : AppCompatActivity() {
 
     private fun loadFeatureData() {
         dbRef = FirebaseDatabase.getInstance().getReference("phim mới")
-        val phimMoiRV = findViewById<RecyclerView>(R.id.recyclerViewPhimmoi)!!
+        val phimMoiRV = findViewById<RecyclerView>(R.id.recyclerViewPhimmoi)
 
         phimMoiRV.layoutManager = LinearLayoutManager (
             this,
