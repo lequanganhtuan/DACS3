@@ -12,7 +12,7 @@ import com.example.dacs.R
 
 class PhimMoiAdapter (var pmlist : List<DataModel> ) : RecyclerView.Adapter<PhimMoiAdapter.PhimMoiViewHolder>() {
     inner  class  PhimMoiViewHolder (itemView: View) : RecyclerView.ViewHolder (itemView) {
-        val imageView = itemView.findViewById<ImageView>(R.id.imageView)
+        val imageView = itemView.findViewById<ImageView>(R.id.imageView1)
         val textView = itemView.findViewById<TextView>(R.id.movie_title)
     }
 

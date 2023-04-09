@@ -13,19 +13,19 @@ import com.example.dacs.Adapter.PhimMoiAdapter
 import com.example.dacs.Fragments.FavouriteFragment
 import com.example.dacs.Fragments.HomeFragment
 import com.example.dacs.Fragments.ProfileFragment
+import com.example.dacs.databinding.ActivityHomepageBinding
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 
 
 class Homepage : AppCompatActivity() {
-    private lateinit var pmlist:ArrayList<DataModel>
+    private lateinit var pmlist: ArrayList<DataModel>
     private lateinit var dbRef :DatabaseReference
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val binding = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_homepage)
 
         val homeFragment = HomeFragment()
@@ -52,16 +52,19 @@ class Homepage : AppCompatActivity() {
 
     }
 
+//    private fun loadData() {
+//        loadFeatureData()
+//
+//    }
+
+
+
     private fun loadData() {
-        loadFeatureData()
-
-    }
-
-
-
-    private fun loadFeatureData() {
         dbRef = FirebaseDatabase.getInstance().getReference("phim mới")
-        val phimMoiRV = findViewById<RecyclerView>(R.id.recyclerViewPhimmoi)!!
+
+
+
+        val phimMoiRV = findViewById<RecyclerView>(R.id.recyclerViewPhimmoi)
 
         phimMoiRV.layoutManager = LinearLayoutManager (
             this,
