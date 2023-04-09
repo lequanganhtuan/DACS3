@@ -13,11 +13,14 @@ import com.example.dacs.Adapter.PhimMoiAdapter
 import com.example.dacs.Fragments.FavouriteFragment
 import com.example.dacs.Fragments.HomeFragment
 import com.example.dacs.Fragments.ProfileFragment
+import com.example.dacs.databinding.ActivityHomepageBinding
+import com.example.dacs.databinding.FragmentHomeBinding
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.*
 
-
+private lateinit var binding: FragmentHomeBinding
+private lateinit var binding1: ActivityHomepageBinding
 class Homepage : AppCompatActivity() {
     private lateinit var pmlist:ArrayList<DataModel>
     private lateinit var dbRef :DatabaseReference
@@ -25,8 +28,9 @@ class Homepage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_homepage)
+        binding =  FragmentHomeBinding.inflate(layoutInflater)
+        binding1 = ActivityHomepageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val homeFragment = HomeFragment()
         val favouriteFragment = FavouriteFragment()
@@ -38,7 +42,7 @@ class Homepage : AppCompatActivity() {
 
 
         //Chỉnh các nút và tới các fragment được tạo
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val bottomNavigationView = binding1.bottomNavigation
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_home -> makeCurrentFragment(homeFragment)
@@ -61,7 +65,8 @@ class Homepage : AppCompatActivity() {
 
     private fun loadFeatureData() {
         dbRef = FirebaseDatabase.getInstance().getReference("phim mới")
-        val phimMoiRV = findViewById<RecyclerView>(R.id.recyclerViewPhimmoi)!!
+        val phimMoiRV = binding.recyclerViewPhimmoi
+        pmlist = ArrayList<DataModel>()
 
         phimMoiRV.layoutManager = LinearLayoutManager (
             this,
