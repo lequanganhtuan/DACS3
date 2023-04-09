@@ -1,7 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ProfileFragment"
-    android:background="#131925"/>
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/backgrounduser"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/baseline_circle_24"
+            android:src="@drawable/ic_avatar">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/tvUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="Le Quang Anh Tuan"
+            android:textColor="#fff"
+            android:textSize="25sp"
+            android:textStyle="bold">
+        </TextView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/frameLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="689dp"
+        android:background="#131925"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/btnLichsu"
+            android:backgroundTint="#131925"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:textStyle="bold"
+            android:textColor="#ffff"
+            android:drawablePadding="2dip"
+            android:drawableLeft="@drawable/ic_history"
+            android:text="Lịch sử xem"
+            tools:ignore="RtlHardcoded" />
+
+        <Button
+            android:id="@+id/btnSuutap"
+            android:backgroundTint="#131925"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#ffff"
+            android:gravity="left|center_vertical"
+            android:drawableLeft="@drawable/ic_collection"
+            android:text="Sưu tập"
+            tools:ignore="RtlHardcoded" />
+
+        <Button
+            android:id="@+id/btnCaidat"
+            android:backgroundTint="#131925"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#ffff"
+            android:gravity="left|center_vertical"
+            android:drawableLeft="@drawable/ic_settings"
+            android:text="Cài đặt"
+            tools:ignore="RtlHardcoded" />
+
+        <Button
+            android:id="@+id/btnNgonngu"
+            android:backgroundTint="#131925"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#ffff"
+            android:gravity="left|center_vertical"
+            android:drawableLeft="@drawable/ic_language"
+            android:text="Ngôn ngữ"
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
