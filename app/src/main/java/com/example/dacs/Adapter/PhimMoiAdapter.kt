@@ -18,13 +18,20 @@ class PhimMoiAdapter (var pmlist : List<DataModel> ) : RecyclerView.Adapter<Phim
 
     // co the view cua firebase
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhimMoiViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_card,parent,false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.movie_card,parent,false)
         return PhimMoiViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PhimMoiViewHolder, position: Int) {
-        holder.textView.setText(pmlist.get(position).Ntitle)
-        Glide.with(holder.itemView.context).load(pmlist.get(position).Nthumb).into(holder.imageView)
+//        holder.textView.setText(pmlist.get(position).Ntitle)
+//        Glide.with(holder.itemView.context).load(pmlist.get(position).Nthumb).into(holder.imageView)
+        val movie = pmlist[position]
+        holder.textView.text = movie.Ntitle
+
+        Glide.with(holder.itemView.context)
+            .load(movie.Nthumb)
+            .into(holder.imageView)
     }
 
     override fun getItemCount(): Int {
