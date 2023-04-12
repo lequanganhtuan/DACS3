@@ -11,6 +11,8 @@ import com.example.dacs.databinding.ActivityLoginBinding
 import com.example.dacs.databinding.ActivityRegisterBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.ktx.Firebase
 
 class Register : AppCompatActivity() {
 
@@ -30,14 +32,23 @@ class Register : AppCompatActivity() {
         }
 
         binding.button.setOnClickListener {
+            val name = binding.nameEt.text.toString()
             val email = binding.emailEt.text.toString()
             val pass = binding.passET.text.toString()
             val confirmPass = binding.confirmPassEt.text.toString()
 
-            if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()){
+            if (name.isNotEmpty()&&email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()){
                 if (pass == confirmPass){
                     firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener {
                         if (it.isSuccessful) {
+                            val user = FirebaseAuth.getInstance().currentUser
+                            user?.let {
+                                val profileUpdates = UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .build()
+                                user.updateProfile(profileUpdates)
+                            }
+
                             val i = Intent(this,Login::class.java)
                             startActivity(i)
                         } else {

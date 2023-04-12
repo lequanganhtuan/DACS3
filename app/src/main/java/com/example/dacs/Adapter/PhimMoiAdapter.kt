@@ -9,34 +9,39 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dacs.DataModel
 import com.example.dacs.R
+import com.example.dacs.databinding.MovieCardBinding
 
 class PhimMoiAdapter (var pmlist : List<DataModel> ) : RecyclerView.Adapter<PhimMoiAdapter.PhimMoiViewHolder>() {
-    inner  class  PhimMoiViewHolder (itemView: View) : RecyclerView.ViewHolder (itemView) {
-        val imageView = itemView.findViewById<ImageView>(R.id.imageView1)
-        val textView = itemView.findViewById<TextView>(R.id.movie_title)
+    inner  class  PhimMoiViewHolder (val binding: MovieCardBinding) : RecyclerView.ViewHolder (binding.root) {
+        val imageView = binding.imageView1
+        val textView = binding.movieTitle
     }
 
     // co the view cua firebase
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhimMoiViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_card,parent,false)
-        return PhimMoiViewHolder(view)
+        val binding = MovieCardBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return PhimMoiViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PhimMoiViewHolder, position: Int) {
 //        holder.textView.setText(pmlist.get(position).Ntitle)
 //        Glide.with(holder.itemView.context).load(pmlist.get(position).Nthumb).into(holder.imageView)
-        val movie = pmlist[position]
-        holder.textView.text = movie.Ntitle
+        holder.itemView.apply {
+            holder.textView.text = pmlist[position].Ntitle
 
-        Glide.with(holder.itemView.context)
-            .load(movie.Nthumb)
-            .into(holder.imageView)
+            Glide.with(holder.itemView.context)
+                .load(pmlist[position].Nthumb)
+                .into(holder.imageView)
+        }
+
     }
 
     override fun getItemCount(): Int {
-       return pmlist.size
+        return pmlist.size
     }
 }
-
 

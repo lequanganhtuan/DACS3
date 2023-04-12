@@ -32,8 +32,13 @@ class Login : AppCompatActivity() {
 
                     firebaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener {
                         if (it.isSuccessful) {
+                            val user = firebaseAuth.currentUser
                             val i = Intent(this,Homepage::class.java)
-                            startActivity(i)
+                            if (user != null) {
+                                i.putExtra("name",user.displayName)
+                                startActivity(i)
+                            }
+
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                         }

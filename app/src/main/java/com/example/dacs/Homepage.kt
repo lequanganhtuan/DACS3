@@ -32,12 +32,15 @@ class Homepage : AppCompatActivity() {
 //        binding =  FragmentHomeBinding.inflate(layoutInflater)
 //        binding1 = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_homepage)
-
+        val i = intent
+        val name = i.getStringExtra("name")
         val homeFragment = HomeFragment()
         val favouriteFragment = FavouriteFragment()
         val profileFragment = ProfileFragment()
-
-
+        val bundle = Bundle()
+        bundle.putString("name", name)
+        profileFragment.arguments=bundle
+        //Tạo fragment để hiển thị
         //Home page sẽ được vào đầu tiên
         makeCurrentFragment(homeFragment)
 
