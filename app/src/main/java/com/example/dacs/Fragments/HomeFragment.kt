@@ -108,26 +108,26 @@ class HomeFragment : Fragment() {
         val imageList = ArrayList<SlideModel>()
         imageList.add(
             SlideModel(
-                "https://images.immediate.co.uk/production/volatile/sites/3/2019/04/Avengers-Endgame-Banner-2-de7cf60.jpg?quality=90&resize=620,413",
-                "Avengers Endgame"
+                "https://static.lag.vn/upload/news/22/12/12/anime-kimetsu-no-yaiba-season-3-cong-bo-them-movie-3_SQQW.jpg?w=800&encoder=wic&subsampling=444",
+                "Demon Slayer: Kimetsu No Yaiba - To the Swordsmith Village"
             )
         )
         imageList.add(
             SlideModel(
-                "https://img.cinemablend.com/filter:scale/quill/3/7/0/0/8/e/37008e36e98cd75101cf1347396eac8534871a19.jpg?mw=600",
-                "Jumanji"
+                "https://s199.imacdn.com/vg/2022/11/24/fca8120309bfea7b_f8267129988ae630_11397616692764385118684.jpg",
+                "MASHLE "
             )
         )
         imageList.add(
             SlideModel(
-                "https://www.adgully.com/img/800/201711/spider-man-homecoming-banner.jpg",
-                "Spider Man"
+                "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjTQ17Ms06jTiVtoqFEhYr13ruNuLCgQZTib45vHFstb0LKqoOckPtqyvDu2IhSsMShUMqGe0T6Qyxuq0OXbrLDbA-90FMzrZjwznpzo_4WVVhSB_2VDAJqNYwhDCVpHexT1EhCFKyriKJ6yxzFLB0J3DHoOa9WDfk3WsSe070aRTECrXjRKh3tShVsiA/s700/oshi-no-ko-anime-banner.jpg",
+                "Oshi no Ko"
             )
         )
         imageList.add(
             SlideModel(
-                "https://live.staticflickr.com/1980/29996141587_7886795726_b.jpg",
-                "Venom"
+                "https://www.transcontinentaltimes.com/wp-content/uploads/2022/11/Attack-on-Titan-1068x601.jpg",
+                "Attack on Titan Final Season"
             )
         )
 
