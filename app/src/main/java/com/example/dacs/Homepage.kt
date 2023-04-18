@@ -42,16 +42,16 @@ class Homepage : AppCompatActivity() {
         profileFragment.arguments=bundle
         //Tạo fragment để hiển thị
         //Home page sẽ được vào đầu tiên
-        makeCurrentFragment(homeFragment)
+        replaceFragment(homeFragment)
 
 
         //Chỉnh các nút và tới các fragment được tạo
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.ic_home -> makeCurrentFragment(homeFragment)
-                R.id.ic_favourite -> makeCurrentFragment(favouriteFragment)
-                R.id.ic_profile -> makeCurrentFragment(profileFragment)
+                R.id.ic_home -> replaceFragment(homeFragment)
+                R.id.ic_favourite -> replaceFragment(favouriteFragment)
+                R.id.ic_profile -> replaceFragment(profileFragment)
             }
             true
         }
@@ -102,11 +102,12 @@ class Homepage : AppCompatActivity() {
 //    }
 
     //ham thay dổi fragment
-    private fun makeCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fl_wrapper,fragment)
-            commit()
-        }
+    private fun replaceFragment(movieFragment: Fragment) {
+        val  fragmentManager = supportFragmentManager
+        val framentTransaction = fragmentManager.beginTransaction()
+        framentTransaction.replace(R.id.fl_wrapper, movieFragment)
+        framentTransaction.commit()
+    }
 
 
 }
