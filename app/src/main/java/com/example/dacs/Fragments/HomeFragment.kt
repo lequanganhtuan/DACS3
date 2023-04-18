@@ -1,5 +1,6 @@
 package com.example.dacs.Fragments
 
+import PhimMoiAdapter
 import android.graphics.Movie
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import com.example.dacs.Adapter.PhimMoiAdapter
+import com.example.dacs.Adapter.TVShowAdapter
+import com.example.dacs.Data.MovieData
+import com.example.dacs.Data.TVShowData
 import com.example.dacs.DataModel
 import com.example.dacs.MyAsyncTask
 import com.example.dacs.R
@@ -29,9 +32,11 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView1: RecyclerView
+    private lateinit var recyclerView2: RecyclerView
     private lateinit var imageSlider: ImageSlider
-    private val movies = mutableListOf<DataModel>()
+    private val movies = mutableListOf<MovieData>()
+    private val tvShows = mutableListOf<TVShowData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,23 +44,35 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        recyclerView = view.findViewById(R.id.recyclerViewPhimmoi)
+        recyclerView1 = view.findViewById(R.id.recyclerViewPhimmoi)
+        recyclerView2 = view.findViewById(R.id.recyclerViewPhimbo)
         imageSlider = view.findViewById(R.id.imageSlider)
 
-        recyclerView.layoutManager = LinearLayoutManager(
+        recyclerView1.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        recyclerView.adapter = PhimMoiAdapter(movies)
+        recyclerView2.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        recyclerView1.adapter = PhimMoiAdapter(movies)
+        recyclerView2.adapter = TVShowAdapter(tvShows)
         Thread {
             val url = "https://api.themoviedb.org/3/list/8248497?api_key=eb82a323e426d30d552550d47bc83e2b"
             val response = URL(url).readText()
             val gson = Gson()
             val movieResponse = gson.fromJson(response, MovieResponse::class.java)
+            val tvShowResponse = gson.fromJson(response, TVShowResponse::class.java)
             movies.addAll(movieResponse.items)
+            tvShows.addAll(tvShowResponse.items)
+            val movieList = movies.filter { movies -> movies.media_type == "movie" }
+            val tvShowList = tvShows.filter { tvShows -> tvShows.media_type == "tv" }
             activity?.runOnUiThread {
-                recyclerView.adapter = PhimMoiAdapter(movies)
+                recyclerView1.adapter = PhimMoiAdapter(movieList)
+                recyclerView2.adapter = TVShowAdapter(tvShowList)
             }
         }.start()
 //        val apiKey = "eb82a323e426d30d552550d47bc83e2b"
@@ -88,33 +105,33 @@ class HomeFragment : Fragment() {
 //        })
 //        vadapter = PhimMoiAdapter(pmList)
 //        recyclerView.adapter = vadapter
-            val imageList = ArrayList<SlideModel>()
-            imageList.add(
-                SlideModel(
-                    "https://images.immediate.co.uk/production/volatile/sites/3/2019/04/Avengers-Endgame-Banner-2-de7cf60.jpg?quality=90&resize=620,413",
-                    "Avengers Endgame"
-                )
+        val imageList = ArrayList<SlideModel>()
+        imageList.add(
+            SlideModel(
+                "https://images.immediate.co.uk/production/volatile/sites/3/2019/04/Avengers-Endgame-Banner-2-de7cf60.jpg?quality=90&resize=620,413",
+                "Avengers Endgame"
             )
-            imageList.add(
-                SlideModel(
-                    "https://img.cinemablend.com/filter:scale/quill/3/7/0/0/8/e/37008e36e98cd75101cf1347396eac8534871a19.jpg?mw=600",
-                    "Jumanji"
-                )
+        )
+        imageList.add(
+            SlideModel(
+                "https://img.cinemablend.com/filter:scale/quill/3/7/0/0/8/e/37008e36e98cd75101cf1347396eac8534871a19.jpg?mw=600",
+                "Jumanji"
             )
-            imageList.add(
-                SlideModel(
-                    "https://www.adgully.com/img/800/201711/spider-man-homecoming-banner.jpg",
-                    "Spider Man"
-                )
+        )
+        imageList.add(
+            SlideModel(
+                "https://www.adgully.com/img/800/201711/spider-man-homecoming-banner.jpg",
+                "Spider Man"
             )
-            imageList.add(
-                SlideModel(
-                    "https://live.staticflickr.com/1980/29996141587_7886795726_b.jpg",
-                    "Venom"
-                )
+        )
+        imageList.add(
+            SlideModel(
+                "https://live.staticflickr.com/1980/29996141587_7886795726_b.jpg",
+                "Venom"
             )
+        )
 
-            imageSlider.setImageList(imageList, ScaleTypes.FIT)
+        imageSlider.setImageList(imageList, ScaleTypes.FIT)
 
         // Inflate the layout for this fragment
         return view
@@ -124,7 +141,14 @@ class HomeFragment : Fragment() {
         val description : String,
         val favorite_count : Int,
         val id : Int,
-        val items : List<DataModel>
+        val items : List<MovieData>
+    )
+    data class TVShowResponse(
+        val create_by : String,
+        val description : String,
+        val favorite_count : Int,
+        val id : Int,
+        val items : List<TVShowData>
     )
 
 

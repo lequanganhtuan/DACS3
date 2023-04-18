@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
-import com.example.dacs.Adapter.PhimMoiAdapter
 import com.example.dacs.Fragments.FavouriteFragment
 import com.example.dacs.Fragments.HomeFragment
 import com.example.dacs.Fragments.ProfileFragment
