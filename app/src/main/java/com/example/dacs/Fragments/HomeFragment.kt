@@ -1,6 +1,6 @@
 package com.example.dacs.Fragments
 
-import PhimMoiAdapter
+import android.content.Intent
 import android.graphics.Movie
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.example.dacs.Adapter.PhimMoiAdapter
 import com.example.dacs.Adapter.TVShowAdapter
 import com.example.dacs.Data.MovieData
 import com.example.dacs.Data.TVShowData
 import com.example.dacs.DataModel
 import com.example.dacs.MyAsyncTask
 import com.example.dacs.R
+import com.example.dacs.WatchMovie
 import com.example.dacs.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 import kotlinx.coroutines.*
@@ -34,6 +36,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var recyclerView1: RecyclerView
     private lateinit var recyclerView2: RecyclerView
+    private lateinit var tvShowAdapter: TVShowAdapter
+    private lateinit var moiAdapter: PhimMoiAdapter
     private lateinit var imageSlider: ImageSlider
     private val movies = mutableListOf<MovieData>()
     private val tvShows = mutableListOf<TVShowData>()
@@ -58,8 +62,10 @@ class HomeFragment : Fragment() {
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        recyclerView1.adapter = PhimMoiAdapter(movies)
-        recyclerView2.adapter = TVShowAdapter(tvShows)
+        tvShowAdapter = TVShowAdapter(tvShows)
+        moiAdapter = PhimMoiAdapter(movies)
+        recyclerView1.adapter = moiAdapter
+        recyclerView2.adapter =  tvShowAdapter
         Thread {
             val url = "https://api.themoviedb.org/3/list/8248497?api_key=eb82a323e426d30d552550d47bc83e2b"
             val response = URL(url).readText()
@@ -71,8 +77,34 @@ class HomeFragment : Fragment() {
             val movieList = movies.filter { movies -> movies.media_type == "movie" }
             val tvShowList = tvShows.filter { tvShows -> tvShows.media_type == "tv" }
             activity?.runOnUiThread {
-                recyclerView1.adapter = PhimMoiAdapter(movieList)
-                recyclerView2.adapter = TVShowAdapter(tvShowList)
+                tvShowAdapter = TVShowAdapter(tvShowList)
+                moiAdapter = PhimMoiAdapter(movieList)
+                recyclerView1.adapter = moiAdapter
+                moiAdapter.setOnItemClickListener(object : PhimMoiAdapter.OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val tvshow = movieList[position]
+                        val intent = Intent(context, WatchMovie::class.java)
+                        intent.putExtra("movieId", tvshow.id)
+                        intent.putExtra("movieTitle", tvshow.title)
+                        intent.putExtra("movieOverview", tvshow.overview)
+                        intent.putExtra("moviePoster", tvshow.poster_path)
+                        intent.putExtra("mediaType", "movie")
+                        startActivity(intent)
+                    }
+                })
+                recyclerView2.adapter = tvShowAdapter
+                tvShowAdapter.setOnItemClickListener(object : TVShowAdapter.OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val tvshow = tvShowList[position]
+                        val intent = Intent(context, WatchMovie::class.java)
+                        intent.putExtra("movieId", tvshow.id)
+                        intent.putExtra("movieTitle", tvshow.name)
+                        intent.putExtra("movieOverview", tvshow.overview)
+                        intent.putExtra("moviePoster", tvshow.poster_path)
+                        intent.putExtra("mediaType", "tv")
+                        startActivity(intent)
+                    }
+                })
             }
         }.start()
 //        val apiKey = "eb82a323e426d30d552550d47bc83e2b"

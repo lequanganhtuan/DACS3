@@ -12,7 +12,19 @@ import com.example.dacs.Data.TVShowData
 import com.example.dacs.R
 
 class TVShowAdapter(private val pmlist: List<TVShowData>) : RecyclerView.Adapter<TVShowAdapter.ViewHolder>() {
-    inner  class  ViewHolder (itemView: View) : RecyclerView.ViewHolder (itemView) {
+    private lateinit var ClickListener: OnItemClickListener
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
+        ClickListener = onItemClickListener
+    }
+    inner  class  ViewHolder (itemView: View, clickListener: OnItemClickListener) : RecyclerView.ViewHolder (itemView) {
+        init {
+            itemView.setOnClickListener {
+                clickListener.onItemClick(adapterPosition)
+            }
+        }
         private val title: TextView = itemView.findViewById(R.id.movie_title)
         private val poster: ImageView = itemView.findViewById(R.id.imageView1)
         fun bind(tvShowData: TVShowData) {
@@ -24,7 +36,7 @@ class TVShowAdapter(private val pmlist: List<TVShowData>) : RecyclerView.Adapter
     // co the view cua firebase
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_card, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, ClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
