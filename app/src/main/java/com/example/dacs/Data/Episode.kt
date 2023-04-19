@@ -1,5 +1,12 @@
 package com.example.dacs.Data
 
-data class Episode(val name:String, val key:String)
+import android.support.annotation.Keep
+
+data class Episode(
+    val Episode:String? = null,
+    val IDPhim:String? = null,
+    val Video:String?=null
+    )
+
 
 
