@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -111,10 +112,14 @@ class WatchMovie : AppCompatActivity() {
     }
     @SuppressLint("SetJavaScriptEnabled")
     fun playVideo(webview: WebView, id: String) {
-
         val html = id
         webview.settings.javaScriptEnabled = true
-        webview.loadData(html, "text/html", "UTF-8")
+        webview.settings.loadWithOverviewMode = true
+        webview.settings.useWideViewPort = true
+        webview.settings.builtInZoomControls = true
+        webview.settings.displayZoomControls = false
+        webview.webChromeClient = WebChromeClient()
+        webview.loadUrl(html)
 
     }
     private fun getComment(id: String) {
