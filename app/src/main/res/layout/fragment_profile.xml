@@ -36,7 +36,8 @@
             android:text="Pham Quoc Phu"
             android:textColor="#fff"
             android:textSize="25sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold">
+        </TextView>
 
 
     </LinearLayout>
@@ -55,45 +56,61 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/btnLichsu"
-            android:backgroundTint="#131925"
+            android:backgroundTint="#1D2A44"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
             android:textStyle="bold"
             android:textColor="#ffff"
             android:drawablePadding="2dip"
+            android:drawableRight="@drawable/ic_right"
             android:drawableLeft="@drawable/ic_history"
             android:text="Lịch sử xem"
             tools:ignore="RtlHardcoded" />
 
         <Button
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/btnSuutap"
-            android:backgroundTint="#131925"
+            android:backgroundTint="#1D2A44"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textColor="#ffff"
             android:gravity="left|center_vertical"
+            android:drawableRight="@drawable/ic_right"
             android:drawableLeft="@drawable/ic_collection"
             android:text="Sưu tập"
             tools:ignore="RtlHardcoded" />
 
         <Button
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/btnCaidat"
-            android:backgroundTint="#131925"
+            android:backgroundTint="#1D2A44"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textColor="#ffff"
             android:gravity="left|center_vertical"
+            android:drawableRight="@drawable/ic_right"
             android:drawableLeft="@drawable/ic_settings"
             android:text="Cài đặt"
             tools:ignore="RtlHardcoded" />
 
         <Button
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/btnNgonngu"
-            android:backgroundTint="#131925"
+            android:backgroundTint="#1D2A44"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -101,6 +118,7 @@
             android:gravity="left|center_vertical"
             android:drawableLeft="@drawable/ic_language"
             android:text="Ngôn ngữ"
+            android:drawableRight="@drawable/ic_right"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
 

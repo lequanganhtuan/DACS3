@@ -9,8 +9,8 @@
 
     <item
         android:id="@+id/ic_favourite"
-        android:icon="@drawable/ic_favourite"
-        android:title="@string/favourite">
+        android:icon="@drawable/ic_search"
+        android:title="Discovery">
     </item>
 
     <item
