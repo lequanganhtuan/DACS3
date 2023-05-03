@@ -126,6 +126,7 @@
         android:layout_width="412dp"
         android:scaleType="centerCrop"
         android:layout_height="204dp"
+        android:background="@drawable/background_lg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

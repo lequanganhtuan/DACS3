@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Fragments.HomeFragment"
-    android:background="#131925">
+    android:background="#181A20">
 
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:backgroundTint="#131925"
+        android:backgroundTint="#181A20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -36,7 +36,7 @@
                 app:iss_delay="0"
                 app:iss_error_image="@android:color/darker_gray"
                 app:iss_period="1000"
-                app:iss_placeholder="@android:color/darker_gray"
+                app:iss_placeholder="@color/purple_700"
                 app:iss_selected_dot="@drawable/default_unselected_dot"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_margin="16dp"
                 android:layout_marginTop="32dp"
                 android:text="Movie"
-                android:textColor="#fff"
+                android:textColor="#14D75A"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="TV Show"
-                android:textColor="#fff"
+                android:textColor="#14D75A"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
