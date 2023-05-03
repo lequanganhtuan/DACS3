@@ -33,12 +33,15 @@ class Homepage : AppCompatActivity() {
         setContentView(R.layout.activity_homepage)
         val i = intent
         val name = i.getStringExtra("name")
+        val id = i.getStringExtra("id")
         val homeFragment = HomeFragment()
         val favouriteFragment = FavouriteFragment()
         val profileFragment = ProfileFragment()
         val bundle = Bundle()
         bundle.putString("name", name)
+        bundle.putString("id", id)
         profileFragment.arguments=bundle
+        homeFragment.arguments=bundle
         //Tạo fragment để hiển thị
         //Home page sẽ được vào đầu tiên
         replaceFragment(homeFragment)

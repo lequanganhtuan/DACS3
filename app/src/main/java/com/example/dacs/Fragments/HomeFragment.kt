@@ -51,6 +51,9 @@ class HomeFragment : Fragment() {
         recyclerView1 = view.findViewById(R.id.recyclerViewPhimmoi)
         recyclerView2 = view.findViewById(R.id.recyclerViewPhimbo)
         imageSlider = view.findViewById(R.id.imageSlider)
+        val bundle = arguments
+        val name = bundle?.getString("name")
+        val id = bundle?.getString("id")
 
         recyclerView1.layoutManager = LinearLayoutManager(
             context,
@@ -89,6 +92,8 @@ class HomeFragment : Fragment() {
                         intent.putExtra("movieOverview", tvshow.overview)
                         intent.putExtra("moviePoster", tvshow.poster_path)
                         intent.putExtra("mediaType", "movie")
+                        intent.putExtra("name", name)
+                        intent.putExtra("id", id)
                         startActivity(intent)
                     }
                 })
@@ -102,6 +107,8 @@ class HomeFragment : Fragment() {
                         intent.putExtra("movieOverview", tvshow.overview)
                         intent.putExtra("moviePoster", tvshow.poster_path)
                         intent.putExtra("mediaType", "tv")
+                        intent.putExtra("name", name)
+                        intent.putExtra("id", id)
                         startActivity(intent)
                     }
                 })

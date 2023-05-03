@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 import com.example.dacs.Data.MovieData
 import com.example.dacs.Data.TVShowData
 import com.example.dacs.R
-
+private lateinit var ClickListener: TVShowAdapter.OnItemClickListener
 class TVShowAdapter(private val pmlist: List<TVShowData>) : RecyclerView.Adapter<TVShowAdapter.ViewHolder>() {
-    private lateinit var ClickListener: OnItemClickListener
+
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
@@ -22,7 +22,7 @@ class TVShowAdapter(private val pmlist: List<TVShowData>) : RecyclerView.Adapter
     inner  class  ViewHolder (itemView: View, clickListener: OnItemClickListener) : RecyclerView.ViewHolder (itemView) {
         init {
             itemView.setOnClickListener {
-                clickListener.onItemClick(adapterPosition)
+                clickListener?.onItemClick(adapterPosition)
             }
         }
         private val title: TextView = itemView.findViewById(R.id.movie_title)
@@ -36,7 +36,7 @@ class TVShowAdapter(private val pmlist: List<TVShowData>) : RecyclerView.Adapter
     // co the view cua firebase
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_card, parent, false)
-        return ViewHolder(view, ClickListener)
+        return ViewHolder(view, ClickListener!!)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

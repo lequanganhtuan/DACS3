@@ -36,6 +36,7 @@ class Login : AppCompatActivity() {
                             val i = Intent(this,Homepage::class.java)
                             if (user != null) {
                                 i.putExtra("name",user.displayName)
+                                i.putExtra("id",user.uid)
                                 startActivity(i)
                             }
 
