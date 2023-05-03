@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.dacs.Data.MovieData
 import com.example.dacs.Data.TVShowData
 import com.example.dacs.R
-private lateinit var ClickListener: TVShowAdapter.OnItemClickListener
+private var ClickListener: TVShowAdapter.OnItemClickListener? = null
 class TVShowAdapter(private val pmlist: List<TVShowData>) : RecyclerView.Adapter<TVShowAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
