@@ -21,14 +21,14 @@
                 android:layout_width="410dp"
                 android:layout_height="248dp"
                 android:layout_weight="1"
+                android:fitsSystemWindows="true"
+                android:hardwareAccelerated="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                android:hardwareAccelerated="true"
-                android:fitsSystemWindows="true"/>
+                app:layout_constraintVertical_bias="0.0" />
 
 
             <TextView
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/ic_container"
+                android:background="@drawable/border"
                 android:padding="8dp"
                 android:textColor="#fff"
                 android:textSize="20sp"
@@ -95,14 +95,14 @@
                 tools:text="Miêu tả phim" />
 
             <TextView
-                android:padding="8dp"
-                android:background="@drawable/ic_container"
                 android:id="@+id/tv_tapphim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
+                android:padding="8dp"
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -123,13 +123,13 @@
                 app:layout_constraintVertical_bias="0.024" />
 
             <TextView
-                android:padding="8dp"
-                android:background="@drawable/ic_container"
                 android:id="@+id/tv_binhluan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
+                android:padding="8dp"
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -150,7 +150,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcvComment"
@@ -161,30 +161,35 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="57dp"
-                android:layout_height="58dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:text="Button"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_send"
+                android:backgroundTint="#1e2229"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.478"
                 app:layout_constraintStart_toEndOf="@+id/commentEt"
                 app:layout_constraintTop_toBottomOf="@+id/scrCmt"
                 tools:ignore="MissingConstraints" />
 
             <EditText
+                android:background="@drawable/border"
                 android:id="@+id/commentEt"
-                android:layout_width="347dp"
-                android:layout_height="63dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="12dp"
                 android:ems="10"
+                android:hint="Comment...."
+                android:textColorHint="#F9F9F9"
                 android:inputType="textPersonName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:padding="8dp"
                 android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.144"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scrCmt"
-                app:layout_constraintVertical_bias="1.0"
-                tools:ignore="MissingConstraints" />
+                app:layout_constraintVertical_bias="0.2" />
 
             <TextView
                 android:id="@+id/textView8"
