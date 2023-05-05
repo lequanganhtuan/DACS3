@@ -18,12 +18,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dacs.Adapter.CommentAdapter
+import com.example.dacs.Adapter.Delete
 import com.example.dacs.Data.Comment
 import com.example.dacs.Data.Episode
 import com.example.dacs.databinding.ActivityWatchMovieBinding
 import com.google.firebase.database.*
-import com.google.gson.Gson
-import java.net.URL
 
 class WatchMovie : AppCompatActivity() {
     private lateinit var binding: ActivityWatchMovieBinding
@@ -33,8 +32,10 @@ class WatchMovie : AppCompatActivity() {
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var db: DatabaseReference
     private lateinit var db2: DatabaseReference
+    private lateinit var db3: DatabaseReference
     private val episodes= mutableListOf<Episode>()
     private val comments= mutableListOf<Comment>()
+
 
     private lateinit var webView: WebView
     private var isFullScreen = false
@@ -48,7 +49,7 @@ class WatchMovie : AppCompatActivity() {
         binding = ActivityWatchMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        webView = findViewById(R.id.WebView)
+        webView = binding.WebView
 
         recyclerView = binding.rvmovieEpisode
         recyclerView.layoutManager = LinearLayoutManager(
@@ -71,8 +72,8 @@ class WatchMovie : AppCompatActivity() {
         binding.tvBinhluan.text = "Comments:"
         binding.movieDescription.text = intent.getStringExtra("movieOverview")
         val id = intent.getIntExtra("movieId", 0).toString()
-        val IDUser = intent.getStringExtra("id")
         val NameUser = intent.getStringExtra("name")
+        val IDUser = intent.getStringExtra("id")
         if (IDUser != null) {
             getComment(id, IDUser)
         }
@@ -108,9 +109,10 @@ class WatchMovie : AppCompatActivity() {
 
         binding.comment.setOnClickListener {
             db2 = FirebaseDatabase.getInstance().getReference("Comments")
+            val idCmt = db2.push().key!!
             val cmt = binding.commentEt.text.toString()
-            val comment = Comment(id, IDUser, NameUser, cmt)
-            db2.push().setValue(comment)
+            val comment = Comment(idCmt, id, IDUser, NameUser, cmt)
+            db2.child(idCmt).setValue(comment)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Đã bình luận", Toast.LENGTH_SHORT).show()
                     binding.commentEt.setText("")
@@ -215,7 +217,8 @@ class WatchMovie : AppCompatActivity() {
     private fun getComment(id: String, idUser:String) {
 
         db2 = FirebaseDatabase.getInstance().getReference("Comments")
-        db2.orderByChild("idphim").equalTo(id).addValueEventListener(object : ValueEventListener {
+        db2.orderByChild("idphim").equalTo(id).addValueEventListener(object : ValueEventListener,
+            Delete {
             override fun onDataChange(snapshot: DataSnapshot) {
                 comments.clear()
                 if (snapshot.exists())
@@ -225,18 +228,27 @@ class WatchMovie : AppCompatActivity() {
                         val cmt = CmtSnap.getValue(Comment::class.java)
                         comments.add(cmt!!)
                     }
-                    commentAdapter = CommentAdapter(comments, idUser)
-                    recyclerView1.adapter = commentAdapter
 
                 }
+                commentAdapter = CommentAdapter(comments, idUser, this)
+                recyclerView1.adapter = commentAdapter
+
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+
+            override fun onDelete(commentId: String) {
+                    db3 = FirebaseDatabase.getInstance().getReference("Comments/$commentId")
+                    db3.removeValue()
+            }
+
+
         })
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         // Thoát chế độ toàn màn hình khi bấm nút back
         if (isFullScreen) {
@@ -246,4 +258,33 @@ class WatchMovie : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+
+
+//    db3 = FirebaseDatabase.getInstance().getReference("Comments/$commentId")
+//    db3.removeValue()
+//    db2 = FirebaseDatabase.getInstance().getReference("Comments")
+//    db2.orderByChild("idphim").equalTo(id).addValueEventListener(object : ValueEventListener {
+//        override fun onDataChange(snapshot: DataSnapshot) {
+//            comments.clear()
+//            if (snapshot.exists())
+//            {
+//                for (CmtSnap in snapshot.children)
+//                {
+//                    val cmt = CmtSnap.getValue(Comment::class.java)
+//                    comments.add(cmt!!)
+//                }
+//                commentAdapter = CommentAdapter(comments, idUser)
+//
+//            }
+//        }
+//
+//        override fun onCancelled(error: DatabaseError) {
+//            TODO("Not yet implemented")
+//        }
+//    })
+
+
+
+
 }

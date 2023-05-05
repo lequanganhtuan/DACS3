@@ -8,8 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dacs.Data.Comment
 import com.example.dacs.R
+import com.google.firebase.database.ValueEventListener
 
-class CommentAdapter(private val comments: List<Comment>, private val currentUserId: String) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+interface Delete {
+    fun onDelete(commentId:String)
+}
+class CommentAdapter(private val comments: List<Comment>, private val currentUserId: String, private val click: Delete) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.comment_card, parent, false)
@@ -18,7 +22,7 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cmt = comments[position]
-        holder.bind(cmt, currentUserId)
+        holder.bind(cmt, currentUserId, click)
     }
 
     override fun getItemCount(): Int = comments.size
@@ -27,7 +31,7 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
         private val name: TextView = itemView.findViewById(R.id.name)
         private val comment: TextView = itemView.findViewById(R.id.comment)
         private val option: TextView = itemView.findViewById(R.id.option)
-        fun bind(cmt: Comment, currentUserId: String) {
+        fun bind(cmt: Comment, currentUserId: String, clicks: Delete?) {
             name.text = cmt.nameUser
             comment.text = cmt.comment
             if (cmt.iduser == currentUserId) {
@@ -49,6 +53,7 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
                         }
                         R.id.delete -> {
                             // Xử lý khi click vào menu Xóa
+                            cmt.id?.let { it1 -> clicks?.onDelete(it1) }
                             true
                         }
                         else -> false
@@ -58,4 +63,4 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
             }
         }
     }
-}
+    }
