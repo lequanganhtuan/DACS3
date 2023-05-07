@@ -2,32 +2,38 @@ package com.example.dacs.Fragments
 
 import android.content.Intent
 import android.graphics.Movie
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.example.dacs.*
 import com.example.dacs.Adapter.PhimMoiAdapter
 import com.example.dacs.Adapter.TVShowAdapter
+import com.example.dacs.Data.History
 import com.example.dacs.Data.MovieData
 import com.example.dacs.Data.TVShowData
-import com.example.dacs.DataModel
-import com.example.dacs.MyAsyncTask
-import com.example.dacs.R
-import com.example.dacs.WatchMovie
 import com.example.dacs.databinding.FragmentHomeBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import java.net.URL
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private lateinit var binding: FragmentHomeBinding
+private lateinit var db: DatabaseReference
 
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -84,6 +90,7 @@ class HomeFragment : Fragment() {
                 moiAdapter = PhimMoiAdapter(movieList)
                 recyclerView1.adapter = moiAdapter
                 moiAdapter.setOnItemClickListener(object : PhimMoiAdapter.OnItemClickListener {
+                    @RequiresApi(Build.VERSION_CODES.O)
                     override fun onItemClick(position: Int) {
                         val tvshow = movieList[position]
                         val intent = Intent(context, WatchMovie::class.java)
@@ -94,11 +101,13 @@ class HomeFragment : Fragment() {
                         intent.putExtra("mediaType", "movie")
                         intent.putExtra("name", name)
                         intent.putExtra("id", id)
+                        SaveHistory(id.toString(),tvshow.media_type, tvshow.id.toString(), tvshow.title, tvshow.poster_path)
                         startActivity(intent)
                     }
                 })
                 recyclerView2.adapter = tvShowAdapter
                 tvShowAdapter.setOnItemClickListener(object : TVShowAdapter.OnItemClickListener {
+                    @RequiresApi(Build.VERSION_CODES.O)
                     override fun onItemClick(position: Int) {
                         val tvshow = tvShowList[position]
                         val intent = Intent(context, WatchMovie::class.java)
@@ -109,6 +118,7 @@ class HomeFragment : Fragment() {
                         intent.putExtra("mediaType", "tv")
                         intent.putExtra("name", name)
                         intent.putExtra("id", id)
+                        SaveHistory(id.toString(),tvshow.media_type, tvshow.id.toString(), tvshow.name, tvshow.poster_path)
                         startActivity(intent)
                     }
                 })
@@ -174,6 +184,14 @@ class HomeFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return view
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun SaveHistory(idUser: String, media:String, idMovie: String, nameMovie:String, poster:String) {
+        db = FirebaseDatabase.getInstance().getReference("History")
+        val date = LocalDateTime.now()
+        val formattedDateTime = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+        val history = History(idUser, media, idMovie, nameMovie,formattedDateTime.toString(), poster)
+        db.push().setValue(history)
     }
     data class MovieResponse(
         val create_by : String,

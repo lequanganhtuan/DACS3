@@ -15,12 +15,15 @@ import android.view.WindowManager
 import android.webkit.*
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dacs.Adapter.CommentAdapter
 import com.example.dacs.Adapter.Delete
 import com.example.dacs.Data.Comment
 import com.example.dacs.Data.Episode
+import com.example.dacs.Data.Favorite
 import com.example.dacs.databinding.ActivityWatchMovieBinding
 import com.google.firebase.database.*
 
@@ -33,6 +36,7 @@ class WatchMovie : AppCompatActivity() {
     private lateinit var db: DatabaseReference
     private lateinit var db2: DatabaseReference
     private lateinit var db3: DatabaseReference
+    private lateinit var db4: DatabaseReference
     private val episodes= mutableListOf<Episode>()
     private val comments= mutableListOf<Comment>()
 
@@ -106,7 +110,7 @@ class WatchMovie : AppCompatActivity() {
 
                 }
             })
-
+        // comment
         binding.comment.setOnClickListener {
             db2 = FirebaseDatabase.getInstance().getReference("Comments")
             val idCmt = db2.push().key!!
@@ -124,6 +128,61 @@ class WatchMovie : AppCompatActivity() {
                 getComment(id, IDUser)
             }
 
+        }
+//        db4 = FirebaseDatabase.getInstance().getReference("Favorites")
+//        db4.orderByChild("idUser").equalTo(IDUser).addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                for (ds in snapshot.children) {
+//                    val favoriteExists = snapshot.children.any { favoriteSnapshot ->
+//                        val movieId = favoriteSnapshot.child("movieId").getValue(String::class.java)
+//                        movieId == id
+//                    }
+//                    if (favoriteExists) {
+//                        // favorite exists
+//                        binding.tvLike.setBackgroundColor(0xFFF44336.toInt())
+//
+//                    }
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
+
+        // like
+        binding.tvLike.setOnClickListener {
+            db4 = FirebaseDatabase.getInstance().getReference("Favorites")
+            db4.orderByChild("idUser").equalTo(IDUser).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val favoriteExists = snapshot.children.any { favoriteSnapshot ->
+                        val movieId = favoriteSnapshot.child("movieId").getValue(String::class.java)
+                        movieId == id
+                    }
+                    if (favoriteExists) {
+                        // favorite exists
+                        binding.tvLike.setBackgroundColor(0xFFFFFF)
+                        // remove the favorite movie from the list
+                        snapshot.children.forEach { favoriteSnapshot ->
+                            val movieId = favoriteSnapshot.child("idPhim").getValue(String::class.java)
+                            if (movieId == id) {
+                                favoriteSnapshot.ref.removeValue()
+                                return@forEach
+                            }
+                        }
+                    } else {
+
+                        // favorite does not exist
+                        val favorite = Favorite(IDUser, id, intent.getStringExtra("movieTitle"), intent.getStringExtra("moviePoster"))
+                        db4.push().setValue(favorite)
+                        binding.tvLike.setBackgroundColor(0xFFF44336.toInt())
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // handle cancelled event
+                }
+            })
         }
 
     }
@@ -258,31 +317,6 @@ class WatchMovie : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
-
-
-//    db3 = FirebaseDatabase.getInstance().getReference("Comments/$commentId")
-//    db3.removeValue()
-//    db2 = FirebaseDatabase.getInstance().getReference("Comments")
-//    db2.orderByChild("idphim").equalTo(id).addValueEventListener(object : ValueEventListener {
-//        override fun onDataChange(snapshot: DataSnapshot) {
-//            comments.clear()
-//            if (snapshot.exists())
-//            {
-//                for (CmtSnap in snapshot.children)
-//                {
-//                    val cmt = CmtSnap.getValue(Comment::class.java)
-//                    comments.add(cmt!!)
-//                }
-//                commentAdapter = CommentAdapter(comments, idUser)
-//
-//            }
-//        }
-//
-//        override fun onCancelled(error: DatabaseError) {
-//            TODO("Not yet implemented")
-//        }
-//    })
 
 
 

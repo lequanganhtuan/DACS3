@@ -204,7 +204,7 @@
                 app:layout_constraintVertical_bias="0.285" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/tvLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_like"
@@ -213,7 +213,8 @@
                 app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toEndOf="@+id/vote_average"
                 app:layout_constraintTop_toBottomOf="@+id/movie_name"
-                app:layout_constraintVertical_bias="0.28" />
+                app:layout_constraintVertical_bias="0.28"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
