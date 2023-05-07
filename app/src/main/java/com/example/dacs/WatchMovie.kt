@@ -25,6 +25,7 @@ import com.example.dacs.Data.Comment
 import com.example.dacs.Data.Episode
 import com.example.dacs.Data.Favorite
 import com.example.dacs.databinding.ActivityWatchMovieBinding
+import com.google.android.youtube.player.internal.v
 import com.google.firebase.database.*
 
 class WatchMovie : AppCompatActivity() {
@@ -39,6 +40,7 @@ class WatchMovie : AppCompatActivity() {
     private lateinit var db4: DatabaseReference
     private val episodes= mutableListOf<Episode>()
     private val comments= mutableListOf<Comment>()
+    private var idFv = String()
 
 
     private lateinit var webView: WebView
@@ -129,27 +131,27 @@ class WatchMovie : AppCompatActivity() {
             }
 
         }
-//        db4 = FirebaseDatabase.getInstance().getReference("Favorites")
-//        db4.orderByChild("idUser").equalTo(IDUser).addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                for (ds in snapshot.children) {
-//                    val favoriteExists = snapshot.children.any { favoriteSnapshot ->
-//                        val movieId = favoriteSnapshot.child("movieId").getValue(String::class.java)
-//                        movieId == id
-//                    }
-//                    if (favoriteExists) {
-//                        // favorite exists
-//                        binding.tvLike.setBackgroundColor(0xFFF44336.toInt())
-//
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//
-//        })
+        db4 = FirebaseDatabase.getInstance().getReference("Favorites")
+        db4.orderByChild("idUser").equalTo(IDUser).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (ds in snapshot.children) {
+                    val favoriteExists = snapshot.children.any { favoriteSnapshot ->
+                        val movieId = favoriteSnapshot.child("idPhim").getValue(String::class.java)
+                        movieId == id
+                    }
+                    if (favoriteExists) {
+                        // favorite exists
+                        binding.tvLike.setBackgroundColor(0xFFF44336.toInt())
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
         // like
         binding.tvLike.setOnClickListener {
@@ -157,25 +159,26 @@ class WatchMovie : AppCompatActivity() {
             db4.orderByChild("idUser").equalTo(IDUser).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val favoriteExists = snapshot.children.any { favoriteSnapshot ->
-                        val movieId = favoriteSnapshot.child("movieId").getValue(String::class.java)
+                        val movieId = favoriteSnapshot.child("idPhim").getValue(String::class.java)
                         movieId == id
                     }
                     if (favoriteExists) {
                         // favorite exists
                         binding.tvLike.setBackgroundColor(0xFFFFFF)
-                        // remove the favorite movie from the list
                         snapshot.children.forEach { favoriteSnapshot ->
-                            val movieId = favoriteSnapshot.child("idPhim").getValue(String::class.java)
-                            if (movieId == id) {
-                                favoriteSnapshot.ref.removeValue()
-                                return@forEach
-                            }
+                            val idF =
+                                favoriteSnapshot.child("idFv").getValue(String::class.java)
+                            idFv = idF.toString()
+
                         }
+                        db4.child(idFv!!).removeValue()
+
                     } else {
+                        val idFv = db4.push().key!!
 
                         // favorite does not exist
-                        val favorite = Favorite(IDUser, id, intent.getStringExtra("movieTitle"), intent.getStringExtra("moviePoster"))
-                        db4.push().setValue(favorite)
+                        val favorite = Favorite(idFv, IDUser, id, intent.getStringExtra("movieTitle"), intent.getStringExtra("moviePoster"))
+                        db4.child(idFv).setValue(favorite)
                         binding.tvLike.setBackgroundColor(0xFFF44336.toInt())
                     }
                 }
