@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.dacs.FavoriteActivity
 import com.example.dacs.HistoryActivity
 import com.example.dacs.R
 import com.example.dacs.databinding.FragmentProfileBinding
@@ -37,6 +38,11 @@ class ProfileFragment : Fragment() {
         binding.tvUser.text = name
         binding.btnLichsu.setOnClickListener {
             val intent = Intent(context, HistoryActivity::class.java)
+            intent.putExtra("idUser", id)
+            startActivity(intent)
+        }
+        binding.btnYeuThich.setOnClickListener {
+            val intent = Intent(context, FavoriteActivity::class.java)
             intent.putExtra("idUser", id)
             startActivity(intent)
         }

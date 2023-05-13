@@ -171,7 +171,7 @@ class WatchMovie : AppCompatActivity() {
                             idFv = idF.toString()
 
                         }
-                        db4.child(idFv!!).removeValue()
+                        db4.child(idFv).removeValue()
 
                     } else {
                         val idFv = db4.push().key!!
