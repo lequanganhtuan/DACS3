@@ -31,6 +31,7 @@ class Homepage : AppCompatActivity() {
         bundle.putString("id", id)
         profileFragment.arguments=bundle
         homeFragment.arguments=bundle
+        favouriteFragment.arguments=bundle
         //Tạo fragment để hiển thị
         //Home page sẽ được vào đầu tiên
         replaceFragment(homeFragment)

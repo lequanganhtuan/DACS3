@@ -168,8 +168,9 @@ class WatchMovie : AppCompatActivity() {
                         snapshot.children.forEach { favoriteSnapshot ->
                             val idF =
                                 favoriteSnapshot.child("idFv").getValue(String::class.java)
-                            idFv = idF.toString()
-
+                            if (idF != null && favoriteSnapshot.child("idPhim").getValue(String::class.java) == id) {
+                                idFv = idF.toString() // gán idFv cho biến idFv
+                            }
                         }
                         db4.child(idFv).removeValue()
 
