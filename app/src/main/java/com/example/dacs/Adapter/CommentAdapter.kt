@@ -1,14 +1,18 @@
 package com.example.dacs.Adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dacs.Data.Comment
 import com.example.dacs.R
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 interface Delete {
     fun onDelete(commentId:String)
@@ -22,7 +26,7 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cmt = comments[position]
-        holder.bind(cmt, currentUserId, click)
+        holder.bind(cmt, currentUserId, click,)
     }
 
     override fun getItemCount(): Int = comments.size
@@ -31,6 +35,7 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
         private val name: TextView = itemView.findViewById(R.id.name)
         private val comment: TextView = itemView.findViewById(R.id.comment)
         private val option: TextView = itemView.findViewById(R.id.option)
+        @SuppressLint("InflateParams")
         fun bind(cmt: Comment, currentUserId: String, clicks: Delete?) {
             name.text = cmt.nameUser
             comment.text = cmt.comment
@@ -48,7 +53,24 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
                 popupMenu.setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.edit -> {
-                            // Xử lý khi click vào menu Chỉnh sửa
+                            val context =itemView.context
+                            val dialogView = LayoutInflater.from(context).inflate(R.layout.edit_comment_dialog, null)
+
+                            val editText = dialogView.findViewById<EditText>(R.id.edit_comment_edittext)
+                            editText.setText(comment.text)
+
+                            AlertDialog.Builder(context)
+                                .setView(dialogView)
+                                .setPositiveButton(R.string.update) { _, _ ->
+                                    val updatedText = editText.text.toString()
+                                    comment.text = updatedText
+                                    updateComment(cmt.id.toString(),
+                                        cmt.idphim.toString(),
+                                        cmt.iduser.toString(), cmt.nameUser.toString(), editText.text.toString())
+                                }
+                                .setNegativeButton(R.string.cancel, null)
+                                .setTitle("Update Comment")
+                                .show()
                             true
                         }
                         R.id.delete -> {
@@ -61,6 +83,13 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
                 }
                 popupMenu.show()
             }
+        }
+
+        private fun updateComment(id: String, idphim: String, iduser: String, nameUser: String, toString: String) {
+            val db = FirebaseDatabase.getInstance().getReference("Comments").child(id)
+            val cmt = Comment(id, idphim, iduser, nameUser, toString)
+            db.setValue(cmt)
+
         }
     }
     }
