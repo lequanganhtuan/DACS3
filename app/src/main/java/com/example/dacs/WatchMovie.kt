@@ -192,13 +192,6 @@ class WatchMovie : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     fun playVideo(webview: WebView, id: String) {
         val html = id
-//        webview.settings.javaScriptEnabled = true
-//        webview.settings.loadWithOverviewMode = true
-//        webview.settings.useWideViewPort = true
-//        webview.settings.builtInZoomControls = true
-//        webview.settings.displayZoomControls = false
-//        webview.webChromeClient = WebChromeClient()
-//        webview.loadUrl(html)
 
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true

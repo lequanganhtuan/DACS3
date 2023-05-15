@@ -1,24 +1,13 @@
 package com.example.dacs
 
-import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.Data
-import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.denzcoskun.imageslider.ImageSlider
 import com.example.dacs.Fragments.FavouriteFragment
 import com.example.dacs.Fragments.HomeFragment
 import com.example.dacs.Fragments.ProfileFragment
-import com.example.dacs.databinding.ActivityHomepageBinding
-import com.example.dacs.databinding.FragmentHomeBinding
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
 
 //private lateinit var binding: FragmentHomeBinding

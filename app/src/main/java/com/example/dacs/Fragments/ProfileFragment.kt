@@ -12,13 +12,7 @@ import com.example.dacs.R
 import com.example.dacs.databinding.FragmentProfileBinding
 import com.google.firebase.database.DatabaseReference
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 private lateinit var binding: FragmentProfileBinding
 class ProfileFragment : Fragment() {
 

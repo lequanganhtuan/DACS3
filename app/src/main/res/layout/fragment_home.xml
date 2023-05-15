@@ -14,8 +14,10 @@
         android:backgroundTint="#181A20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
+        app:title="MovieZ"
+        app:logo="@drawable/logoheader"
+        app:titleTextColor="#14D75A"
         android:theme="?attr/actionBarTheme" />
 
     <ScrollView
