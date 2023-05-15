@@ -21,6 +21,7 @@ import com.example.dacs.Data.History
 import com.example.dacs.Data.MovieData
 import com.example.dacs.Data.TVShowData
 import com.example.dacs.databinding.FragmentHomeBinding
+import com.google.android.youtube.player.internal.m
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -47,6 +48,8 @@ class HomeFragment : Fragment() {
     private lateinit var imageSlider: ImageSlider
     private val movies = mutableListOf<MovieData>()
     private val tvShows = mutableListOf<TVShowData>()
+    private var movieList = mutableListOf<MovieData>()
+    private var tvShowList = mutableListOf<TVShowData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +79,8 @@ class HomeFragment : Fragment() {
         recyclerView1.adapter = moiAdapter
         recyclerView2.adapter =  tvShowAdapter
         Thread {
+            movies.clear()
+            tvShows.clear()
             val url = "https://api.themoviedb.org/3/list/8248497?api_key=eb82a323e426d30d552550d47bc83e2b"
             val response = URL(url).readText()
             val gson = Gson()
@@ -83,8 +88,10 @@ class HomeFragment : Fragment() {
             val tvShowResponse = gson.fromJson(response, TVShowResponse::class.java)
             movies.addAll(movieResponse.items)
             tvShows.addAll(tvShowResponse.items)
-            val movieList = movies.filter { movies -> movies.media_type == "movie" }
-            val tvShowList = tvShows.filter { tvShows -> tvShows.media_type == "tv" }
+            movieList.clear()
+            tvShowList.clear()
+            movieList = movies.filter { movies -> movies.media_type == "movie" }.toMutableList()
+            tvShowList = tvShows.filter { tvShows -> tvShows.media_type == "tv" }.toMutableList()
             activity?.runOnUiThread {
                 tvShowAdapter = TVShowAdapter(tvShowList)
                 moiAdapter = PhimMoiAdapter(movieList)

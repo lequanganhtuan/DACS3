@@ -47,6 +47,9 @@ class FavouriteFragment : Fragment() {
         recyclerView.adapter = searchAdapter
 
         Thread {
+            searchList.clear()
+            searchMovie.clear()
+            originalMovieList.clear()
             val url = "https://api.themoviedb.org/3/list/8248497?api_key=eb82a323e426d30d552550d47bc83e2b"
             val response = URL(url).readText()
             val gson = Gson()
