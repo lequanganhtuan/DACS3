@@ -2,16 +2,25 @@ package com.example.dacs
 
 import FavoriteAdapter
 import HistoryAdapter
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dacs.Data.Episode
 import com.example.dacs.Data.Favorite
 import com.example.dacs.Data.History
+import com.example.dacs.Fragments.FavouriteFragment
+import com.example.dacs.Fragments.HomeFragment
+import com.example.dacs.Fragments.ProfileFragment
 import com.example.dacs.databinding.ActivityFavoriteBinding
 import com.example.dacs.databinding.ActivityHistoryBinding
 import com.google.firebase.database.*
+import java.util.zip.Inflater
 
 private lateinit var binding: ActivityFavoriteBinding
 private lateinit var recyclerView: RecyclerView
@@ -22,6 +31,7 @@ private val favorites= mutableListOf<Favorite>()
 
 class FavoriteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -50,5 +60,15 @@ class FavoriteActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
+
+
+        val textView = findViewById<TextView>(R.id.back)
+        textView.setOnClickListener {
+            val intent = Intent(this, Homepage::class.java)
+            startActivity(intent)
+        }
+
+
     }
+
 }

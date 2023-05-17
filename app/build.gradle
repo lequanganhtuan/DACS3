@@ -5,8 +5,6 @@ plugins {
     id 'kotlin-android'
 }
 
-
-
 android {
     namespace 'com.example.dacs'
     compileSdk 33

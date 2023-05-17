@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +17,7 @@ import android.view.WindowManager
 import android.webkit.*
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -131,6 +134,7 @@ class WatchMovie : AppCompatActivity() {
             }
 
         }
+
         db4 = FirebaseDatabase.getInstance().getReference("Favorites")
         db4.orderByChild("idUser").equalTo(IDUser).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -141,8 +145,10 @@ class WatchMovie : AppCompatActivity() {
                     }
                     if (favoriteExists) {
                         // favorite exists
-                        binding.tvLike.setBackgroundColor(0xFFF44336.toInt())
-
+                        val context: Context = applicationContext
+//                        binding.tvLike.setBackgroundColor(Color.parseColor("#181A20"))
+                        val drawable: Drawable? = ContextCompat.getDrawable(context, R.drawable.ic_like1)
+                        binding.tvLike.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
                     }
                 }
             }
@@ -164,7 +170,7 @@ class WatchMovie : AppCompatActivity() {
                     }
                     if (favoriteExists) {
                         // favorite exists
-                        binding.tvLike.setBackgroundColor(0xFFFFFF)
+                        binding.tvLike.setBackgroundColor(0xFFFFF)
                         snapshot.children.forEach { favoriteSnapshot ->
                             val idF =
                                 favoriteSnapshot.child("idFv").getValue(String::class.java)
@@ -180,7 +186,11 @@ class WatchMovie : AppCompatActivity() {
                         // favorite does not exist
                         val favorite = Favorite(idFv, IDUser, id, intent.getStringExtra("movieTitle"), intent.getStringExtra("moviePoster"))
                         db4.child(idFv).setValue(favorite)
-                        binding.tvLike.setBackgroundColor(0xFFF44336.toInt())
+//                        binding.tvLike.setBackgroundColor(Color.parseColor("#181A20"))
+                        val context: Context = applicationContext
+//                        binding.tvLike.setBackgroundColor(Color.parseColor("#181A20"))
+                        val drawable: Drawable? = ContextCompat.getDrawable(context, R.drawable.ic_like1)
+                        binding.tvLike.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {

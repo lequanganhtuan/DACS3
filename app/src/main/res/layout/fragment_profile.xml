@@ -8,13 +8,14 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="409dp"
+        android:layout_height="246dp"
         android:background="@drawable/backgrounduser"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,105 +37,72 @@
             android:text="Pham Quoc Phu"
             android:textColor="#fff"
             android:textSize="25sp"
-            android:textStyle="bold">
-        </TextView>
+            android:textStyle="bold"></TextView>
 
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/frameLayout"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="689dp"
+        android:layout_width="410dp"
+        android:layout_height="643dp"
         android:background="#181A20"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
+            android:id="@+id/btnLichsu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/btnLichsu"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:backgroundTint="#1e2229"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:textStyle="bold"
-            android:textColor="#ffff"
-            android:drawablePadding="2dip"
-            android:drawableRight="@drawable/ic_right"
             android:drawableLeft="@drawable/ic_history"
+            android:drawableRight="@drawable/ic_right"
+            android:drawablePadding="2dip"
+            android:gravity="left|center_vertical"
             android:text="History"
-            tools:ignore="RtlHardcoded" />
-
-        <Button
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/btnSuutap"
-            android:backgroundTint="#1e2229"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:textColor="#ffff"
-            android:gravity="left|center_vertical"
-            android:drawableRight="@drawable/ic_right"
-            android:drawableLeft="@drawable/ic_collection"
-            android:text="collection"
-            tools:ignore="RtlHardcoded" />
-
-        <Button
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/btnCaidat"
-            android:backgroundTint="#1e2229"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="#ffff"
-            android:gravity="left|center_vertical"
-            android:drawableRight="@drawable/ic_right"
-            android:drawableLeft="@drawable/ic_settings"
-            android:text="Setting"
             tools:ignore="RtlHardcoded" />
 
         <Button
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:id="@+id/btnNgonngu"
-            android:backgroundTint="#1e2229"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="#ffff"
-            android:gravity="left|center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="#1e2229"
             android:drawableLeft="@drawable/ic_language"
-            android:text="language"
             android:drawableRight="@drawable/ic_right"
+            android:gravity="left|center_vertical"
+            android:text="LogOUT"
+            android:textColor="#ffff"
+            android:textStyle="bold"
             tools:ignore="RtlHardcoded" />
 
         <Button
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:id="@+id/btnYeuThich"
-            android:backgroundTint="#1e2229"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="#ffff"
-            android:gravity="left|center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="#1e2229"
             android:drawableLeft="@drawable/ic_favourite"
-            android:text="favourite"
             android:drawableRight="@drawable/ic_right"
+            android:gravity="left|center_vertical"
+            android:text="favourite"
+            android:textColor="#ffff"
+            android:textStyle="bold"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
 

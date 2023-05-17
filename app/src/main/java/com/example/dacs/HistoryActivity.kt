@@ -1,8 +1,10 @@
 package com.example.dacs
 
 import HistoryAdapter
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dacs.Data.Episode
@@ -46,6 +48,13 @@ class HistoryActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+
         })
+
+        val textView = findViewById<TextView>(R.id.back)
+        textView.setOnClickListener {
+            val intent = Intent(this, Homepage::class.java)
+            startActivity(intent)
+        }
     }
 }
