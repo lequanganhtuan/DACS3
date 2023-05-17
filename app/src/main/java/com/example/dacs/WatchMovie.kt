@@ -179,6 +179,10 @@ class WatchMovie : AppCompatActivity() {
                             }
                         }
                         db4.child(idFv).removeValue()
+                        val context: Context = applicationContext
+//                        binding.tvLike.setBackgroundColor(Color.parseColor("#181A20"))
+                        val drawable: Drawable? = ContextCompat.getDrawable(context, R.drawable.ic_like)
+                        binding.tvLike.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
 
                     } else {
                         val idFv = db4.push().key!!

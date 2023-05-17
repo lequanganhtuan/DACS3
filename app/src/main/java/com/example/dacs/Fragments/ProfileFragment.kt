@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.dacs.FavoriteActivity
 import com.example.dacs.HistoryActivity
+import com.example.dacs.MainActivity
 import com.example.dacs.R
 import com.example.dacs.databinding.FragmentProfileBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 
 
@@ -38,6 +40,15 @@ class ProfileFragment : Fragment() {
         binding.btnYeuThich.setOnClickListener {
             val intent = Intent(context, FavoriteActivity::class.java)
             intent.putExtra("idUser", id)
+            startActivity(intent)
+        }
+        binding.btnLogout.setOnClickListener {
+            // Đăng xuất
+            FirebaseAuth.getInstance().signOut()
+
+            // Chuyển hướng đến màn hình đăng nhập
+            val intent = Intent(context, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
         return binding.root

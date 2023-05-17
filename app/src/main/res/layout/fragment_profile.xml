@@ -74,22 +74,6 @@
             tools:ignore="RtlHardcoded" />
 
         <Button
-            android:id="@+id/btnNgonngu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:backgroundTint="#1e2229"
-            android:drawableLeft="@drawable/ic_language"
-            android:drawableRight="@drawable/ic_right"
-            android:gravity="left|center_vertical"
-            android:text="LogOUT"
-            android:textColor="#ffff"
-            android:textStyle="bold"
-            tools:ignore="RtlHardcoded" />
-
-        <Button
             android:id="@+id/btnYeuThich"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,6 +88,22 @@
             android:textColor="#ffff"
             android:textStyle="bold"
             tools:ignore="RtlHardcoded" />
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="#1e2229"
+            android:drawableLeft="@drawable/ic_language"
+            android:drawableRight="@drawable/ic_right"
+            android:gravity="left|center_vertical"
+            android:text="LogOUT"
+            android:textColor="#ffff"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded" />
+
     </LinearLayout>
 
 
