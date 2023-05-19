@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 interface Delete {
     fun onDelete(commentId:String)
 }
+
 class CommentAdapter(private val comments: List<Comment>, private val currentUserId: String, private val click: Delete) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,14 +40,15 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
         fun bind(cmt: Comment, currentUserId: String, clicks: Delete?) {
             name.text = cmt.nameUser
             comment.text = cmt.comment
+            //Check id de tuong tac
             if (cmt.iduser == currentUserId) {
-
                 option.visibility = View.VISIBLE
             }
             else
             {
                 option.visibility = View.GONE
             }
+
             option.setOnClickListener {
                 val popupMenu = PopupMenu(this.itemView.context, option)
                 popupMenu.menuInflater.inflate(R.menu.menu_option, popupMenu.menu)
@@ -58,12 +60,12 @@ class CommentAdapter(private val comments: List<Comment>, private val currentUse
 
                             val editText = dialogView.findViewById<EditText>(R.id.edit_comment_edittext)
                             editText.setText(comment.text)
-
+                            //Hien thi giao dien edit
                             AlertDialog.Builder(context)
                                 .setView(dialogView)
                                 .setPositiveButton(R.string.update) { _, _ ->
                                     val updatedText = editText.text.toString()
-                                    comment.text = updatedText
+                                    comment.text = updatedText // noi dung cmt hien tai
                                     updateComment(cmt.id.toString(),
                                         cmt.idphim.toString(),
                                         cmt.iduser.toString(), cmt.nameUser.toString(), editText.text.toString())

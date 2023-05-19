@@ -25,7 +25,7 @@ class FavouriteFragment : Fragment() {
     private var searchMovie = mutableListOf<SearchData>()
     private lateinit var searchView: SearchView
     private var searchList = mutableListOf<SearchData>()
-    private val originalMovieList = mutableListOf<SearchData>()
+//    private val originalMovieList = mutableListOf<SearchData>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentFavouriteBinding.inflate(inflater, container, false)
@@ -47,17 +47,22 @@ class FavouriteFragment : Fragment() {
         recyclerView.adapter = searchAdapter
 
         Thread {
+            //Xoa du lieu de chuan bi du lieu moi
             searchList.clear()
             searchMovie.clear()
-            originalMovieList.clear()
+//            originalMovieList.clear()
+
+
             val url = "https://api.themoviedb.org/3/list/8248497?api_key=eb82a323e426d30d552550d47bc83e2b"
             val response = URL(url).readText()
             val gson = Gson()
 
             val searchResponse = gson.fromJson(response, SearchResponse::class.java)
-            originalMovieList.addAll(searchResponse.items)
+
+//            originalMovieList.addAll(searchResponse.items)
             searchMovie.addAll(searchResponse.items)
             searchList.addAll(searchResponse.items)
+
             activity?.runOnUiThread {
                 searchAdapter = SearchAdapter(searchList)
                 recyclerView.adapter = searchAdapter
@@ -78,7 +83,7 @@ class FavouriteFragment : Fragment() {
         }.start()
 
         searchView = binding.search
-        searchView.clearFocus()
+        searchView.clearFocus() // giữ kết quả hiển thị tránh bị che bởi bàn phím
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()

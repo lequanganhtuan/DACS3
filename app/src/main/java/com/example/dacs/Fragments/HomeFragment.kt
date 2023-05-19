@@ -31,15 +31,11 @@ import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private lateinit var binding: FragmentHomeBinding
 private lateinit var db: DatabaseReference
 
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var recyclerView1: RecyclerView
     private lateinit var recyclerView2: RecyclerView
@@ -60,6 +56,7 @@ class HomeFragment : Fragment() {
         recyclerView1 = view.findViewById(R.id.recyclerViewPhimmoi)
         recyclerView2 = view.findViewById(R.id.recyclerViewPhimbo)
         imageSlider = view.findViewById(R.id.imageSlider)
+
         val bundle = arguments
         val name = bundle?.getString("name")
         val id = bundle?.getString("id")
@@ -103,15 +100,18 @@ class HomeFragment : Fragment() {
                         val intent = Intent(context, WatchMovie::class.java)
                         intent.putExtra("movieId", tvshow.id)
                         intent.putExtra("movieTitle", tvshow.title)
+                        intent.putExtra("voteAverage", tvshow.vote_average)
                         intent.putExtra("movieOverview", tvshow.overview)
                         intent.putExtra("moviePoster", tvshow.poster_path)
                         intent.putExtra("mediaType", "movie")
                         intent.putExtra("name", name)
                         intent.putExtra("id", id)
+
                         SaveHistory(id.toString(),tvshow.media_type, tvshow.id.toString(), tvshow.title, tvshow.poster_path)
                         startActivity(intent)
                     }
                 })
+
                 recyclerView2.adapter = tvShowAdapter
                 tvShowAdapter.setOnItemClickListener(object : TVShowAdapter.OnItemClickListener {
                     @RequiresApi(Build.VERSION_CODES.O)
@@ -120,6 +120,7 @@ class HomeFragment : Fragment() {
                         val intent = Intent(context, WatchMovie::class.java)
                         intent.putExtra("movieId", tvshow.id)
                         intent.putExtra("movieTitle", tvshow.name)
+                        intent.putExtra("voteAverage", tvshow.vote_average)
                         intent.putExtra("movieOverview", tvshow.overview)
                         intent.putExtra("moviePoster", tvshow.poster_path)
                         intent.putExtra("mediaType", "tv")
@@ -182,7 +183,7 @@ class HomeFragment : Fragment() {
         )
         imageList.add(
             SlideModel(
-                "https://www.transcontinentaltimes.com/wp-content/uploads/2022/11/Attack-on-Titan-1068x601.jpg",
+                "https://www.comingsoon.net/wp-content/uploads/sites/3/2022/04/6025e4b811cf2c61281856be28ffc2c91649000159_main-1.jpeg",
                 "Attack on Titan Final Season"
             )
         )

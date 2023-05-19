@@ -47,7 +47,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/vote_average"
+                android:id="@+id/vt_avg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_star"
@@ -75,7 +75,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vote_average"
+                app:layout_constraintTop_toBottomOf="@+id/vt_avg"
                 app:layout_constraintVertical_bias="0.046"
 
                 tools:text="Miêu tả phim" />
@@ -211,7 +211,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/des"
                 app:layout_constraintEnd_toStartOf="@+id/textView8"
                 app:layout_constraintHorizontal_bias="0.542"
-                app:layout_constraintStart_toEndOf="@+id/vote_average"
+                app:layout_constraintStart_toEndOf="@+id/vt_avg"
                 app:layout_constraintTop_toBottomOf="@+id/movie_name"
                 app:layout_constraintVertical_bias="0.28"
                 />

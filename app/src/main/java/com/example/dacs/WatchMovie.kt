@@ -77,6 +77,7 @@ class WatchMovie : AppCompatActivity() {
 
         binding.movieName.text = intent.getStringExtra("movieTitle")
         binding.des.text = "Description:"
+        binding.vtAvg.text = intent.getDoubleExtra("voteAverage",0.0).toString()
         binding.tvTapphim.text = "Episodes:"
         binding.tvBinhluan.text = "Comments:"
         binding.movieDescription.text = intent.getStringExtra("movieOverview")
@@ -94,7 +95,6 @@ class WatchMovie : AppCompatActivity() {
                         for (ds in snapshot.children) {
                             val episode = ds.getValue(Episode::class.java)
                             episodes.add(episode!!)
-
                         }
                         episodes[0].Video?.let { playVideo(webview, it) }
                     }
@@ -108,7 +108,6 @@ class WatchMovie : AppCompatActivity() {
                         }
                     )
                     recyclerView.adapter = episodeAdapter
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -120,21 +119,37 @@ class WatchMovie : AppCompatActivity() {
             db2 = FirebaseDatabase.getInstance().getReference("Comments")
             val idCmt = db2.push().key!!
             val cmt = binding.commentEt.text.toString()
+            val maxLength = cmt.length
             val comment = Comment(idCmt, id, IDUser, NameUser, cmt)
-            db2.child(idCmt).setValue(comment)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Đã bình luận", Toast.LENGTH_SHORT).show()
-                    binding.commentEt.setText("")
-                }
-                .addOnFailureListener {
+
+
+            if  (maxLength > 5) {
+                db2.child(idCmt).setValue(comment)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Đã bình luận", Toast.LENGTH_SHORT).show()
+                        binding.commentEt.setText("")
+                    }
+                    .addOnFailureListener {
                     Toast.makeText(this, "Không thể bình luận", Toast.LENGTH_SHORT).show()
                 }
-            if (IDUser != null) {
-                getComment(id, IDUser)
+
+            } else {
+                Toast.makeText(this, "ko the binh luan", Toast.LENGTH_SHORT).show()
             }
+//            db2.child(idCmt).setValue(comment)
+//                .addOnSuccessListener {
+//                    Toast.makeText(this, "Đã bình luận", Toast.LENGTH_SHORT).show()
+//                    binding.commentEt.setText("")
+//                }
+//                .addOnFailureListener {
+//                    Toast.makeText(this, "Không thể bình luận", Toast.LENGTH_SHORT).show()
+//                }
+//            if (IDUser != null) {
+//                getComment(id, IDUser)
+//            }
 
         }
-
+        //Kiem tra phim co trong danh sách yeu thich chua
         db4 = FirebaseDatabase.getInstance().getReference("Favorites")
         db4.orderByChild("idUser").equalTo(IDUser).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -146,7 +161,6 @@ class WatchMovie : AppCompatActivity() {
                     if (favoriteExists) {
                         // favorite exists
                         val context: Context = applicationContext
-//                        binding.tvLike.setBackgroundColor(Color.parseColor("#181A20"))
                         val drawable: Drawable? = ContextCompat.getDrawable(context, R.drawable.ic_like1)
                         binding.tvLike.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
                     }
@@ -170,7 +184,7 @@ class WatchMovie : AppCompatActivity() {
                     }
                     if (favoriteExists) {
                         // favorite exists
-                        binding.tvLike.setBackgroundColor(0xFFFFF)
+//                        binding.tvLike.setBackgroundColor(0xFFFFF)
                         snapshot.children.forEach { favoriteSnapshot ->
                             val idF =
                                 favoriteSnapshot.child("idFv").getValue(String::class.java)
@@ -208,6 +222,7 @@ class WatchMovie : AppCompatActivity() {
     fun playVideo(webview: WebView, id: String) {
         val html = id
 
+        //config che do xem
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
         webSettings.allowFileAccess = true

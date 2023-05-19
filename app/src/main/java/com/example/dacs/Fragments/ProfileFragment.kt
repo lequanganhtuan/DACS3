@@ -28,9 +28,11 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
+
         val bundle = arguments
         val name = bundle?.getString("name")
         val id = bundle?.getString("id")
+
         binding.tvUser.text = name
         binding.btnLichsu.setOnClickListener {
             val intent = Intent(context, HistoryActivity::class.java)

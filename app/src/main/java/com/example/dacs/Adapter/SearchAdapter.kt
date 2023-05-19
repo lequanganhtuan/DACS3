@@ -54,31 +54,5 @@ class SearchAdapter (private val pmlist: List<SearchData>)  : RecyclerView.Adapt
     override fun getItemCount(): Int =
         pmlist.size
 
-//    override fun getFilter(): Filter {
-//        return object : Filter() {
-//            override fun performFiltering(constraint: CharSequence?): FilterResults {
-//                val filteredList: MutableList<SearchData> = mutableListOf()
-//                if (constraint.toString().isEmpty()) {
-//                    filteredList.addAll(pmlist)
-//                } else {
-//                    val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
-//                    for (item in pmlist) {
-//                        if (item.title?.toLowerCase(Locale.ROOT)?.contains(filterPattern) == true) {
-//                            filteredList.add(item)
-//                        }
-//                    }
-//                }
-//                val filterResults = FilterResults()
-//                filterResults.values = filteredList
-//                return filterResults
-//            }
-//
-//            @SuppressLint("NotifyDataSetChanged")
-//            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-//                searchListFiltered = results?.values as? List<SearchData> ?: emptyList()
-//                notifyDataSetChanged()
-//            }
-//        }
-//    }
 
 }
